@@ -88,7 +88,7 @@ exports.getAll = async (req, res) => {
             {
                 $sort: { _id: -1 } // Sort by _id in descending order
             }
-        ]);
+        ]).option({ maxTimeMS: 30000 });;
 
         // const posts = await Post.find()
 
