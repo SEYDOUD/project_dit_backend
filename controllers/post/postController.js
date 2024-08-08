@@ -90,7 +90,7 @@ exports.getAll = async (req, res) => {
         //     }
         // ]);
 
-        const posts = await Post.find()
+        const posts = await Post.find().option({ maxTimeMS: 30000 });
 
         // const formattedPosts = posts.map(post => ({
         //     id: post._id,
