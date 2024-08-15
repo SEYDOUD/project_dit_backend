@@ -22,6 +22,13 @@ app.use((req, res, next) => {
     }
 });
 
+connectDb().then(()=>{
+  app.listen(PORT,async ()=>{
+      console.log(`server is running at PORT :${PORT}`);
+  })
+})
+
+
 //middleware
 app.use(cors())
 app.use(express.json({ limit: '10mb' }));
@@ -30,8 +37,3 @@ app.use(cookieParser());
 app.use(routes);
 app.use(helmet());
 
-connectDb().then(()=>{
-    app.listen(PORT,async ()=>{
-        console.log(`server is running at PORT :${PORT}`);
-    })
-})

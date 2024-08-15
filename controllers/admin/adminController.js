@@ -160,16 +160,16 @@ exports.getAllPost = async (req, res) => {
                     img: 1,
                     likes: 1,
                     dislikes: 1,
-                    commentCount: 1
+                    commentCount: 1,
+                    status: 1 // Ajoute le champ status du post
                 }
             }
         ]);
-       
         
-        if(posts.length == 0){
+        if (posts.length === 0) {
             res.status(200).send({ callback: "Aucun post pour le moment" });
-        }else{
-            res.status(200).send({ callback: posts});
+        } else {
+            res.status(200).send({ callback: posts });
         }
 
     } catch (error) {
@@ -180,6 +180,7 @@ exports.getAllPost = async (req, res) => {
         res.status(statusCode).json({ code: errorCode, callback: errorMessage });
     }
 };
+
 
 exports.getNumberPost = async (req, res) => {
     try {
@@ -223,6 +224,19 @@ exports.getNumberComments = async (req, res) => {
     }
 };
 
+exports.getNumberNegativeComments = async (req, res) => {
+    try {
+        const totalNegativeComment = await Comment.countDocuments({ status: "negative" });
+        res.status(200).send({ callback: totalNegativeComment });
+
+    } catch (error) {
+        let statusCode = 500;
+        let errorCode = "#000";
+        let errorMessage = error.message;
+
+        res.status(statusCode).json({ code: errorCode, callback: errorMessage });
+    }
+};
 
 exports.getAllComment = async (req, res) => {
     try {
@@ -243,7 +257,8 @@ exports.getAllComment = async (req, res) => {
                     _id: 1, // ID du commentaire
                     message: 1, // Message du commentaire
                     username: "$user.username", // Nom d'utilisateur
-                    idPost: 1 // ID du post
+                    idPost: 1, // ID du post
+                    status: 1 // Ajout du champ status
                 }
             }
         ]);

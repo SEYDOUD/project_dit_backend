@@ -11,6 +11,7 @@ adminRouter.route("/posts").get(adminController.getAllPost)
 adminRouter.route("/countPosts").get(adminController.getNumberPost)
 adminRouter.route("/countUsers").get(adminController.getNumberUser)
 adminRouter.route("/countComments").get(adminController.getNumberComments)
+adminRouter.route("/countNegativeComments").get(adminController.getNumberNegativeComments)
 adminRouter.route("/comments").get(adminController.getAllComment)
 
 module.exports = adminRouter

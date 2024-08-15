@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const PostSchema = new Schema({
   message: String,
+  status: String,
   img: String,
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],

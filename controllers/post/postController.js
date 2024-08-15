@@ -1,5 +1,6 @@
 const { Post } = require("../../models/Post");
 const { User } = require("../../models/User");
+const axios = require('axios');
 
 exports.create = async (req, res) => {
     try {
@@ -9,13 +10,27 @@ exports.create = async (req, res) => {
         const user = await User.findById(userId);
         
         if (!user) {
-            throw new Error("User not found");
+            throw new Error("User not found");  
+        }
+
+        const response = await axios.post('http://127.0.0.1:8000/predict', {
+            message: req.body.message
+        });
+        const prediction = response.data.class
+        console.log("my prediction:"+prediction)
+        let status = "";  // Changement de 'const' à 'let'
+
+        if (prediction >= 2) {
+            status = "positive";
+        } else {
+            status = "negative";  // Ajout d'une condition pour définir la valeur 'negative'
         }
 
         const post = new Post({
             message: message,
+            status: status,
             img: img,
-            idUser: userId
+            idUser: userId,
         });
 
         await post.save();
@@ -29,7 +44,7 @@ exports.create = async (req, res) => {
         let errorCode = "#000";
         let errorMessage = error.message;
 
-        res.status(statusCode).json({ code: errorCode, callback: errorMessage });
+        res.status(statusCode).json({ code: errorCode, callback: "hello"+error });
     }
 }
 

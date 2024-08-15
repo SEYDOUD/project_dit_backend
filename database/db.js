@@ -6,8 +6,11 @@ const DB_NAME = process.env.DB_NAME;
 
 module.exports = async function (params) {
     try {
-        await mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,{serverSelectionTimeoutMS: 30000,});
-        console.log('Connection has been established successfully.');
+        await mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`)
+            .then(()=>{
+                console.log('Connection has been established successfully.');
+            }
+        );
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }

@@ -34,7 +34,7 @@ exports.login = async(req,res) =>{
             errorMessage = "Identifiants incorrects";
         }
 
-        res.status(statusCode).json({ code: errorCode, callback: errorMessage });
+        res.status(statusCode).json({ code: errorCode, callback:"" +errorMessage });
     }
 }
 
