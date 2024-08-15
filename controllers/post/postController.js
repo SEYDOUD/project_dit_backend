@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { Post } = require("../../models/Post");
 const { User } = require("../../models/User");
 const axios = require('axios');
@@ -50,6 +51,9 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            throw new Error("Database connection is not established");
+        }
         const posts = await Post.aggregate([
             {
                 $lookup: {

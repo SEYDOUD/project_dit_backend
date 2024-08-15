@@ -22,11 +22,6 @@ app.use((req, res, next) => {
     }
 });
 
-connectDb().then(()=>{
-  app.listen(PORT,async ()=>{
-      console.log(`server is running at PORT :${PORT}`);
-  })
-})
 
 
 //middleware
@@ -37,3 +32,11 @@ app.use(cookieParser());
 app.use(routes);
 app.use(helmet());
 
+
+connectDb().then(() => {
+  app.listen(PORT, async () => {
+      console.log(`Server is running at PORT: ${PORT}`);
+  });
+}).catch(error => {
+  console.error('Failed to connect to the database:', error);
+});
