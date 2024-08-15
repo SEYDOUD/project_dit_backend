@@ -23,7 +23,7 @@ exports.create = async (req, res) => {
             return res.status(404).json({ code: "#002", callback: "Post not found" });
         }
 
-        const response = await axios.post('http://127.0.0.1:8000/predict', {
+        const response = await axios.post('https://projet-dit-model.onrender.com/predict', {
             message: req.body.message
         });
 

@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
             throw new Error("User not found");  
         }
 
-        const response = await axios.post('http://127.0.0.1:8000/predict', {
+        const response = await axios.post('https://projet-dit-model.onrender.com/predict', {
             message: req.body.message
         });
         const prediction = response.data.class
